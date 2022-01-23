@@ -1,0 +1,13 @@
+@import './reset.scss';
+@import './mixins';
+
+body {
+  font-family: 'Roboto', 'Helvetica', sans-serif;
+  font-weight: normal;
+  background: #f9f9f9;
+  font-size: 18px;
+}
+
+* {
+  box-sizing: border-box;
+}

@@ -1,0 +1,19 @@
+.board {
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
+.rows {
+  width: max-content;
+  margin: 0 auto;
+}
+
+.row {
+  display: flex;
+
+  &:first-child {
+    .cell {
+      border-top: 1px solid #000;
+    }
+  }
+}
