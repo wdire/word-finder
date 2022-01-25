@@ -2,10 +2,10 @@ import {
   CellsBetweenSelectionType,
   CellType,
   GameState,
-  PlotType,
+  PointType,
   SelectCellType
-} from '../../interfaces';
-import { getCellById } from '../../utils/boardUtils';
+} from '../interfaces';
+import { getCellById } from './boardUtils';
 
 export const selectCell = (
   cells: CellType[],
@@ -47,7 +47,7 @@ export const resetCurrentSelectedCells = (_states: GameState) => {
   resetSelectCell(reset_cells);
 };
 
-const isNotCorrectCross = (plots: PlotType[]) => {
+const isNotCorrectCross = (plots: PointType[]) => {
   let notVertical = false;
   let notHorizontal = false;
   let notCorrectCross = false;

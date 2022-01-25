@@ -1,10 +1,11 @@
 import { GameActionType, GameType } from '../../interfaces';
+import { initBoard } from '../../utils/boardUtils';
 import {
   combineCellValues,
   findCellsBetweenSelection,
   getCellByElm,
   resetCurrentSelectedCells
-} from './gameServices';
+} from '../../utils/gameUtils';
 
 const gameReducer = (state: GameType, action: GameActionType): GameType => {
   console.log('action', action);
@@ -70,6 +71,13 @@ const gameReducer = (state: GameType, action: GameActionType): GameType => {
 
       return {
         ...state
+      };
+    }
+
+    case 'test_start': {
+      return {
+        ...state,
+        board: initBoard()
       };
     }
 

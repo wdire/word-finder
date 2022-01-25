@@ -28,10 +28,18 @@ export type GameState = {
 export type GameActionType =
   | { type: 'select_cell_down'; payload: HTMLDivElement }
   | { type: 'select_cell_up'; payload: HTMLDivElement }
-  | { type: 'reset_cell_select' };
+  | { type: 'reset_cell_select' }
+  | { type: 'test_start' };
 
 export type SelectCellType = 'down' | 'up';
 
-export type PlotType = { x: number; y: number };
+export type PointType = { x: number; y: number };
 
 export type CellsBetweenSelectionType = CellType[] | false;
+
+export type WritePointsType = {
+  start: PointType;
+  end: PointType;
+};
+
+export type BasicDirType = 'top' | 'left' | 'bottom' | 'right';

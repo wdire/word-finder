@@ -1,35 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import GameContext from '../../context/Game/gameContext';
-import { CellType } from '../../interfaces';
 
 import './board.scss';
 import CellList from '../CellList';
-
-export const initBoard = () => {
-  return createBoard();
-};
-
-const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-
-const createBoard = () => {
-  const created_cells: CellType[] = [];
-
-  Array.from(Array(3).keys()).forEach((rowId: number) => {
-    Array.from(Array(3).keys()).forEach((colId: number) => {
-      created_cells.push({
-        id: rowId + '-' + colId,
-        value: chars[rowId + colId],
-        y: rowId,
-        x: colId,
-        ref: React.createRef()
-      });
-    });
-  });
-
-  return {
-    cells: created_cells
-  };
-};
 
 const Board = () => {
   const [state, dispatch] = useContext(GameContext);
@@ -61,6 +34,8 @@ const Board = () => {
 
     document.addEventListener('mousedown', handleMousedown);
     document.addEventListener('mouseup', handleMouseup);
+
+    dispatch({ type: 'test_start' });
 
     return () => {
       document.removeEventListener('mousedown', handleMousedown);
