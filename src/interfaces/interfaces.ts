@@ -3,17 +3,22 @@ import React from 'react';
 export type CellType = {
   id: string;
   value: string;
-  x: number;
-  y: number;
+  point: PointType;
   ref: React.RefObject<HTMLDivElement>;
+  available: boolean;
+  style?: React.CSSProperties;
+  class_name?: string;
 };
 
 export type BoardType = {
   cells: CellType[];
+  sizeX: number;
+  sizeY: number;
 };
 
 export type GameType = {
   board: BoardType;
+  words: string[];
   _states: GameState;
 };
 
@@ -43,3 +48,27 @@ export type WritePointsType = {
 };
 
 export type BasicDirType = 'top' | 'left' | 'bottom' | 'right';
+
+export type AddedWordType = {
+  word: string;
+  points: PointType[];
+};
+
+export type AvailabilityCalcType = {
+  top: {
+    available: boolean;
+    end_point: PointType;
+  };
+  left: {
+    available: boolean;
+    end_point: PointType;
+  };
+  bottom: {
+    available: boolean;
+    end_point: PointType;
+  };
+  right: {
+    available: boolean;
+    end_point: PointType;
+  };
+};

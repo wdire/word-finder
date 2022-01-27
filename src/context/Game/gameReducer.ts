@@ -32,8 +32,8 @@ const gameReducer = (state: GameType, action: GameActionType): GameType => {
 
       const cells_between = findCellsBetweenSelection(
         state.board.cells,
-        state._states.cell_selected_down,
-        cell_selected_up
+        state._states.cell_selected_down.point,
+        cell_selected_up.point
       );
 
       if (typeof cells_between === 'object' && cells_between?.length > 0) {
@@ -66,18 +66,19 @@ const gameReducer = (state: GameType, action: GameActionType): GameType => {
     case 'reset_cell_select': {
       resetCurrentSelectedCells(state._states);
 
-      if (state._states.cell_selected_down)
-        delete state._states.cell_selected_down;
-
       return {
-        ...state
+        ...state,
+        _states: {
+          ...state._states,
+          cell_selected_down: undefined
+        }
       };
     }
 
     case 'test_start': {
       return {
         ...state,
-        board: initBoard()
+        board: initBoard(state.board.sizeX, state.board.sizeY, state.words)
       };
     }
 

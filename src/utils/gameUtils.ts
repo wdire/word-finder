@@ -77,18 +77,25 @@ const isNotCorrectCross = (plots: PointType[]) => {
 
 export const findCellsBetweenSelection = (
   cells: CellType[],
-  start: CellType,
-  end: CellType
+  start_point: PointType,
+  end_point: PointType
 ): CellsBetweenSelectionType => {
-  const plots = plotBresenham(start.x, start.y, end.x, end.y);
+  const plots = plotBresenham(
+    start_point.x,
+    start_point.y,
+    end_point.x,
+    end_point.y
+  );
   const cells_between: CellType[] = [];
 
+  //TODO: note, can delete not correct cross later probably
   if (!isNotCorrectCross(plots)) {
     plots.forEach((plot) => {
       cells_between.push(getCellById(cells, plot.y + '-' + plot.x));
     });
     return cells_between;
   } else {
+    console.log('error 654891');
     return false;
   }
 };
@@ -103,13 +110,13 @@ export const combineCellValues = (cells: CellType[]) => {
 };
 
 //https://www.vertexfragment.com/ramblings/variable-length-bresenham-lines/
-const plotBresenham = (
+export const plotBresenham = (
   x0: number,
   y0: number,
   x1: number,
   y1: number,
   range = 0
-) => {
+): PointType[] => {
   const dx = x1 - x0;
   const dy = y1 - y0;
   const absX = Math.abs(dx);

@@ -17,7 +17,9 @@ const Board = () => {
           payload: e.target as HTMLDivElement
         });
       } else {
-        dispatch({ type: 'reset_cell_select' });
+        if (state._states.cell_selected_down) {
+          dispatch({ type: 'reset_cell_select' });
+        }
       }
     };
 
@@ -28,7 +30,9 @@ const Board = () => {
           payload: e.target as HTMLDivElement
         });
       } else {
-        dispatch({ type: 'reset_cell_select' });
+        if (state._states.cell_selected_down) {
+          dispatch({ type: 'reset_cell_select' });
+        }
       }
     };
 
@@ -41,7 +45,7 @@ const Board = () => {
       document.removeEventListener('mousedown', handleMousedown);
       document.removeEventListener('mouseup', handleMouseup);
     };
-  }, [dispatch]);
+  }, []);
 
   return (
     <>

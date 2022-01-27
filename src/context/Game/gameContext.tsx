@@ -1,15 +1,11 @@
 import React from 'react';
 import { GameActionType, GameType } from '../../interfaces';
+import { initialState } from './GameProvider';
 
 const GameContext = React.createContext<
   [GameType, React.Dispatch<GameActionType>]
 >([
-  {
-    board: {
-      cells: []
-    },
-    _states: {}
-  },
+  initialState,
   // eslint-disable-next-line
   () => {}
 ]);
