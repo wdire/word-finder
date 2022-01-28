@@ -1,14 +1,9 @@
 import { GameActionType, GameType } from '../../interfaces';
 import { initBoard } from '../../utils/boardUtils';
-import {
-  combineCellValues,
-  findCellsBetweenSelection,
-  getCellByElm,
-  resetCurrentSelectedCells
-} from '../../utils/gameUtils';
+import { getCellByElm, handleEndOfSelectionWord } from '../../utils/gameUtils';
 
 const gameReducer = (state: GameType, action: GameActionType): GameType => {
-  console.log('action', action);
+  //console.log('action', action);
   switch (action.type) {
     case 'select_cell_down': {
       const cell_selected_down = getCellByElm(
@@ -28,49 +23,57 @@ const gameReducer = (state: GameType, action: GameActionType): GameType => {
     case 'select_cell_up': {
       if (!state._states.cell_selected_down) return { ...state };
 
-      const cell_selected_up = getCellByElm(state.board.cells, action.payload);
-
-      const cells_between = findCellsBetweenSelection(
-        state.board.cells,
-        state._states.cell_selected_down.point,
-        cell_selected_up.point
-      );
-
-      if (typeof cells_between === 'object' && cells_between?.length > 0) {
-        const cells_word = combineCellValues(cells_between);
-
-        return {
-          ...state,
-          _states: {
-            ...state._states,
-            cell_selected_down: undefined,
-            selections: [
-              ...(state._states.selections || []),
-              {
-                cells: cells_between,
-                word: cells_word
-              }
-            ]
-          }
-        };
-      }
-
-      return {
+      const output = {
         ...state,
         _states: {
-          ...state._states
+          ...state._states,
+          cell_selected_down: undefined,
+          cell_selected_over: undefined
         }
       };
+
+      const cell_selected_up = getCellByElm(state.board.cells, action.payload);
+
+      const selection = handleEndOfSelectionWord(
+        state.board.cells,
+        state._states.cell_selected_down.point,
+        cell_selected_up.point,
+        state.wordsLeft
+      );
+
+      if (selection.length > 0) {
+        output.board.selections = [
+          ...(state.board.selections || []),
+          ...selection
+        ];
+        output.wordsLeft.splice(state.wordsLeft.indexOf(selection[0].word), 1);
+      }
+
+      return output;
     }
 
-    case 'reset_cell_select': {
-      resetCurrentSelectedCells(state._states);
+    case 'select_cell_over': {
+      const cell_selected_over = getCellByElm(
+        state.board.cells,
+        action.payload
+      );
 
       return {
         ...state,
         _states: {
           ...state._states,
-          cell_selected_down: undefined
+          cell_selected_over
+        }
+      };
+    }
+
+    case 'reset_cell_select': {
+      return {
+        ...state,
+        _states: {
+          ...state._states,
+          cell_selected_down: undefined,
+          cell_selected_over: undefined
         }
       };
     }
@@ -78,7 +81,7 @@ const gameReducer = (state: GameType, action: GameActionType): GameType => {
     case 'test_start': {
       return {
         ...state,
-        board: initBoard(state.board.sizeX, state.board.sizeY, state.words)
+        board: initBoard(state.board.sizeX, state.board.sizeY, state.allWords)
       };
     }
 

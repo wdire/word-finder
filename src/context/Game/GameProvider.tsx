@@ -9,7 +9,19 @@ export const initialState: GameType = {
     sizeX: 15,
     sizeY: 10
   },
-  words: [
+  allWords: [
+    'STRIDE',
+    'UNDERTAKE',
+    'EMPIRICAL',
+    'EXTENSION',
+    'JOYSTICK',
+    'CLUSTER',
+    'RAID',
+    'TERRACE',
+    'PROTEST',
+    'PREY'
+  ],
+  wordsLeft: [
     'STRIDE',
     'UNDERTAKE',
     'EMPIRICAL',

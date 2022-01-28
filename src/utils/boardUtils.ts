@@ -5,7 +5,6 @@ import {
   WritePointsType,
   BasicDirType,
   PointType,
-  AddedWordType,
   AvailabilityCalcType
 } from '../interfaces/interfaces';
 import { findCellsBetweenSelection } from './gameUtils';

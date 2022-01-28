@@ -1,9 +1,8 @@
 import {
-  CellsBetweenSelectionType,
   CellType,
-  GameState,
   PointType,
-  SelectCellType
+  SelectCellType,
+  SelectionType
 } from '../interfaces';
 import { getCellById } from './boardUtils';
 
@@ -25,26 +24,6 @@ export const selectCell = (
 
 export const getCellByElm = (cells: CellType[], elm: HTMLDivElement) => {
   return getCellById(cells, elm.getAttribute('data-cell-id') || '');
-};
-
-export const resetSelectCell = (cells: CellType[]) => {
-  cells.forEach((cell) => {
-    cell.ref.current?.classList.remove('selected');
-  });
-};
-
-export const resetCurrentSelectedCells = (_states: GameState) => {
-  const reset_cells: CellType[] = [];
-
-  if (_states.cell_selected_down) {
-    reset_cells.push(_states.cell_selected_down);
-  }
-
-  if (_states.cell_selected_up) {
-    reset_cells.push(_states.cell_selected_up);
-  }
-
-  resetSelectCell(reset_cells);
 };
 
 const isNotCorrectCross = (plots: PointType[]) => {
@@ -79,7 +58,7 @@ export const findCellsBetweenSelection = (
   cells: CellType[],
   start_point: PointType,
   end_point: PointType
-): CellsBetweenSelectionType => {
+): CellType[] => {
   const plots = plotBresenham(
     start_point.x,
     start_point.y,
@@ -88,16 +67,15 @@ export const findCellsBetweenSelection = (
   );
   const cells_between: CellType[] = [];
 
-  //TODO: note, can delete not correct cross later probably
   if (!isNotCorrectCross(plots)) {
     plots.forEach((plot) => {
       cells_between.push(getCellById(cells, plot.y + '-' + plot.x));
     });
-    return cells_between;
   } else {
     console.log('error 654891');
-    return false;
   }
+
+  return cells_between;
 };
 
 export const combineCellValues = (cells: CellType[]) => {
@@ -107,6 +85,49 @@ export const combineCellValues = (cells: CellType[]) => {
   });
 
   return word;
+};
+
+export const handleEndOfSelectionWord = (
+  cells: CellType[],
+  start_point: PointType,
+  end_point: PointType,
+  words: string[]
+): SelectionType[] => {
+  const cells_between = findCellsBetweenSelection(
+    cells,
+    start_point,
+    end_point
+  );
+
+  const cells_word = combineCellValues(cells_between);
+
+  if (
+    words.includes(cells_word) ||
+    words.includes(cells_word.split('').reverse().join(''))
+  ) {
+    return [
+      {
+        cells: cells_between,
+        word: cells_word
+      }
+    ];
+  }
+
+  return [];
+};
+
+export const isCellBetweenCorrectCross = (
+  start_point: PointType,
+  end_point: PointType
+) => {
+  const plots = plotBresenham(
+    start_point.x,
+    start_point.y,
+    end_point.x,
+    end_point.y
+  );
+
+  return !isNotCorrectCross(plots);
 };
 
 //https://www.vertexfragment.com/ramblings/variable-length-bresenham-lines/

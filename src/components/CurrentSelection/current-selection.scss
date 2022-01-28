@@ -1,0 +1,9 @@
+.current_selection-container {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+.current_selection {
+  transition: width 0.2s ease-in-out;
+}
