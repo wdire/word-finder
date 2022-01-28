@@ -6,7 +6,7 @@ import gameReducer from './gameReducer';
 export const initialState: GameType = {
   board: {
     cells: [],
-    sizeX: 15,
+    sizeX: 10,
     sizeY: 10
   },
   allWords: [
@@ -33,6 +33,7 @@ export const initialState: GameType = {
     'PROTEST',
     'PREY'
   ],
+  foundWords: [],
   _states: {}
 };
 

@@ -46,7 +46,9 @@ const gameReducer = (state: GameType, action: GameActionType): GameType => {
           ...(state.board.selections || []),
           ...selection
         ];
+
         output.wordsLeft.splice(state.wordsLeft.indexOf(selection[0].word), 1);
+        output.foundWords.push(selection[0].word);
       }
 
       return output;

@@ -21,6 +21,7 @@ export type GameType = {
   board: BoardType;
   allWords: string[];
   wordsLeft: string[];
+  foundWords: string[];
   _states: GameState;
 };
 
@@ -67,4 +68,9 @@ export type AvailabilityCalcType = {
     available: boolean;
     end_point: PointType;
   };
+};
+
+export type LinePropType = {
+  angle: number;
+  length: number;
 };

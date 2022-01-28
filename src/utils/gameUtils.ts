@@ -99,12 +99,14 @@ export const handleEndOfSelectionWord = (
     end_point
   );
 
-  const cells_word = combineCellValues(cells_between);
+  let cells_word = combineCellValues(cells_between);
+  const cells_word_reversed = cells_word.split('').reverse().join('');
 
-  if (
-    words.includes(cells_word) ||
-    words.includes(cells_word.split('').reverse().join(''))
-  ) {
+  if (words.includes(cells_word) || words.includes(cells_word_reversed)) {
+    if (words.includes(cells_word_reversed)) {
+      cells_word = cells_word_reversed;
+    }
+
     return [
       {
         cells: cells_between,

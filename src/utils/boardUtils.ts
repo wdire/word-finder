@@ -56,6 +56,8 @@ export const createBoardWithWords = (
 
     if (availablePoint) {
       writeWordPointToPoint(board.cells, availablePoint, word);
+    } else {
+      console.log("couldn't find spot for", word);
     }
   });
 
