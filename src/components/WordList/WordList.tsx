@@ -1,32 +1,32 @@
 import { useCallback, useContext } from 'react';
 import GameContext from '../../context/Game/gameContext';
+import { WordsNormalCaseType } from '../../interfaces';
 import './word-list.scss';
 
 const WordList = () => {
   const [state] = useContext(GameContext);
 
   const renderWords = useCallback(
-    (allWords: string[], foundWords: string[]) => {
-      return allWords.map((word, index) => {
-        console.log('found words', foundWords);
-        const isFound = foundWords.includes(word);
+    (allWords: WordsNormalCaseType, foundWords: string[]) => {
+      return Object.entries(allWords).map((word, index) => {
+        const isFound = foundWords.includes(word[0]);
         return (
           <div
             key={'word_' + index}
             className={'word-list_word' + (isFound ? ' found' : '')}
           >
-            {word}
+            {word[1]}
           </div>
         );
       });
     },
-    [state.allWords, state.foundWords]
+    [state.allWordsNormalCase, state.foundWords]
   );
 
   return (
     <>
       <div className="word-list">
-        {renderWords(state.allWords, state.foundWords)}
+        {renderWords(state.allWordsNormalCase, state.foundWords)}
       </div>
     </>
   );

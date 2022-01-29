@@ -1,0 +1,67 @@
+@import '../../styles/variables';
+
+.start-page {
+  position: relative;
+  width: 300px;
+  min-height: 80px;
+  margin: 0 auto;
+  margin-top: 100px;
+  padding: 0 20px;
+  padding-top: 18px;
+
+  h2 {
+    font-size: 24px;
+    text-align: left;
+    margin-bottom: 15px;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 5px;
+    width: 4px;
+    height: 100px;
+    background-color: $blue-color-main;
+    transform: skew(0, 45deg);
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 0;
+    width: 220px;
+    height: 4px;
+    background-color: $blue-color-main;
+    transform: skew(45deg, 0);
+  }
+}
+
+.start-page_options {
+  width: 100%;
+  font-size: inherit;
+  border: none;
+  padding: 10px 7px;
+  background: $light-white-bg;
+}
+
+.start-page_button {
+  margin-top: 16px;
+  padding: 10px 26px;
+  border: 0;
+  cursor: pointer;
+  font-size: 15px;
+  text-align: center;
+  background-color: $blue-color-main;
+  color: $dark-bg-text-color;
+  transition: background-color 0.18s ease;
+
+  &:hover {
+    background-color: $blue-color-hover;
+  }
+}
+
+.start-page_title {
+  margin-bottom: 5px;
+}

@@ -1,1 +1,12 @@
 $text-color: #445566;
+$dark-bg-text-color: #fff;
+
+$blue-color-main: #4d7fff;
+$blue-color-hover: lighten(
+  $color: $blue-color-main,
+  $amount: 5
+);
+
+$light-white-bg: #eee;
+
+$start-page-set-width: 300px;

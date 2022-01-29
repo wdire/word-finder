@@ -22,6 +22,8 @@ export type GameType = {
   allWords: string[];
   wordsLeft: string[];
   foundWords: string[];
+  allWordsNormalCase: WordsNormalCaseType;
+  started: boolean;
   _states: GameState;
 };
 
@@ -38,7 +40,8 @@ export type GameActionType =
   | { type: 'select_cell_up'; payload: HTMLDivElement }
   | { type: 'reset_cell_select' }
   | { type: 'test_start' }
-  | { type: 'select_cell_over'; payload: HTMLDivElement };
+  | { type: 'select_cell_over'; payload: HTMLDivElement }
+  | { type: 'start'; payload: StartOptionsType };
 
 export type SelectCellType = 'down' | 'up';
 
@@ -74,3 +77,21 @@ export type LinePropType = {
   angle: number;
   length: number;
 };
+
+export type WordsDataItemType = {
+  name: string;
+  lower: string;
+  words?: string[];
+  items?: WordsDataItemType[];
+};
+
+export type WordsDataType = WordsDataItemType[];
+
+export type StartOptionsType = {
+  words: string[];
+  allWordsNormalCase: WordsNormalCaseType;
+  sizeX: number;
+  sizeY: number;
+};
+
+export type WordsNormalCaseType = { [key: string]: string };

@@ -57,8 +57,6 @@ const Board = () => {
     document.addEventListener('mousemove', handleMousemove);
     document.addEventListener('mouseup', handleMouseup);
 
-    dispatch({ type: 'test_start' });
-
     return () => {
       document.removeEventListener('mousedown', handleMousedown);
       document.removeEventListener('mousemove', handleMousemove);

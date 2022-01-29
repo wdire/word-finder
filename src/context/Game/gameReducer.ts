@@ -3,7 +3,7 @@ import { initBoard } from '../../utils/boardUtils';
 import { getCellByElm, handleEndOfSelectionWord } from '../../utils/gameUtils';
 
 const gameReducer = (state: GameType, action: GameActionType): GameType => {
-  //console.log('action', action);
+  console.log('action', action);
   switch (action.type) {
     case 'select_cell_down': {
       const cell_selected_down = getCellByElm(
@@ -84,6 +84,19 @@ const gameReducer = (state: GameType, action: GameActionType): GameType => {
       return {
         ...state,
         board: initBoard(state.board.sizeX, state.board.sizeY, state.allWords)
+      };
+    }
+
+    case 'start': {
+      return {
+        ...state,
+        started: true,
+        board: initBoard(action.payload.sizeX, action.payload.sizeY, [
+          ...action.payload.words
+        ]),
+        wordsLeft: [...action.payload.words],
+        allWords: [...action.payload.words],
+        allWordsNormalCase: action.payload.allWordsNormalCase
       };
     }
 
