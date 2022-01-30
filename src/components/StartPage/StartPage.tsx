@@ -64,13 +64,11 @@ const StartPage = () => {
 
       words = words.map((e) => e.replaceAll(' ', '').toUpperCase());
 
-      console.log(words, caseChangedWords);
-
       const longestWord = words.reduce((a, b) => {
         return a.length > b.length ? a : b;
       });
 
-      const sizeX = longestWord.length + Math.floor(Math.random() * 4);
+      const sizeX = longestWord.length + Math.floor(Math.random() * 3) + 1;
       const sizeY = sizeX + Math.floor(Math.random() * 3) - 1;
 
       dispatch({

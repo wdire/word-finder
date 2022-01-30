@@ -7,26 +7,34 @@ const WordList = () => {
   const [state] = useContext(GameContext);
 
   const renderWords = useCallback(
-    (allWords: WordsNormalCaseType, foundWords: string[]) => {
-      return Object.entries(allWords).map((word, index) => {
-        const isFound = foundWords.includes(word[0]);
+    (
+      allWords: string[],
+      allWordsNormalCase: WordsNormalCaseType,
+      foundWords: string[]
+    ) => {
+      return allWords.map((word, index) => {
+        const isFound = foundWords.includes(word);
         return (
           <div
             key={'word_' + index}
             className={'word-list_word' + (isFound ? ' found' : '')}
           >
-            {word[1]}
+            {allWordsNormalCase[word]}
           </div>
         );
       });
     },
-    [state.allWordsNormalCase, state.foundWords]
+    [state.allWords, state.foundWords]
   );
 
   return (
     <>
       <div className="word-list">
-        {renderWords(state.allWordsNormalCase, state.foundWords)}
+        {renderWords(
+          state.allWords,
+          state.allWordsNormalCase,
+          state.foundWords
+        )}
       </div>
     </>
   );

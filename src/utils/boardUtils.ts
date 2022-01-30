@@ -57,6 +57,7 @@ export const createBoardWithWords = (
     if (availablePoint) {
       writeWordPointToPoint(board.cells, availablePoint, word);
     } else {
+      words.splice(words.indexOf(word), 1);
       console.log("couldn't find spot for", word);
     }
   });
@@ -86,11 +87,7 @@ const writeWordPointToPoint = (
   cells_between_start_end.forEach((cell_between) => {
     cell_between.value = wordSplit[wordCount];
     cell_between.available = false;
-    if (cell_between.style?.background) {
-      //cell_between.style = { background: 'rgba(50,50,50,0.4)' };
-    } else {
-      //cell_between.style = { background: 'rgba(50,50,50,0.2)' };
-    }
+
     wordCount++;
   });
 };

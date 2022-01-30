@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import GameContext from '../../context/Game/gameContext';
 
 import './board.scss';
@@ -53,14 +53,21 @@ const Board = () => {
       }
     };
 
+    const handleResize = (e: UIEvent) => {
+      //Trigger state to re-render FoundSelections
+      dispatch({ type: 'reset_cell_select' });
+    };
+
     document.addEventListener('mousedown', handleMousedown);
     document.addEventListener('mousemove', handleMousemove);
     document.addEventListener('mouseup', handleMouseup);
+    window.addEventListener('resize', handleResize, true);
 
     return () => {
       document.removeEventListener('mousedown', handleMousedown);
       document.removeEventListener('mousemove', handleMousemove);
       document.removeEventListener('mouseup', handleMouseup);
+      window.removeEventListener('resize', handleResize, true);
     };
   }, []);
 

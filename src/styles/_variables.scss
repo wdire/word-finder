@@ -7,6 +7,14 @@ $blue-color-hover: lighten(
   $amount: 5
 );
 
+$red-color-main: #ff4d4d;
+$red-color-hover: lighten(
+  $color: $red-color-main,
+  $amount: 5
+);
+
 $light-white-bg: #eee;
 
 $start-page-set-width: 300px;
+
+$header-max-width: 500px;

@@ -132,6 +132,10 @@ export const isCellBetweenCorrectCross = (
   return !isNotCorrectCross(plots);
 };
 
+export const isGameOver = (foundWords: string[], allWords: string[]) => {
+  return foundWords.length === allWords.length;
+};
+
 //https://www.vertexfragment.com/ramblings/variable-length-bresenham-lines/
 export const plotBresenham = (
   x0: number,

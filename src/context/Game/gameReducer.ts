@@ -1,9 +1,14 @@
 import { GameActionType, GameType } from '../../interfaces';
 import { initBoard } from '../../utils/boardUtils';
-import { getCellByElm, handleEndOfSelectionWord } from '../../utils/gameUtils';
+import {
+  getCellByElm,
+  handleEndOfSelectionWord,
+  isGameOver
+} from '../../utils/gameUtils';
+import initialState from './initialState';
 
 const gameReducer = (state: GameType, action: GameActionType): GameType => {
-  console.log('action', action);
+  //console.log('action', action);
   switch (action.type) {
     case 'select_cell_down': {
       const cell_selected_down = getCellByElm(
@@ -51,6 +56,10 @@ const gameReducer = (state: GameType, action: GameActionType): GameType => {
         output.foundWords.push(selection[0].word);
       }
 
+      if (isGameOver(state.allWords, state.foundWords)) {
+        output.gameover = true;
+      }
+
       return output;
     }
 
@@ -88,15 +97,34 @@ const gameReducer = (state: GameType, action: GameActionType): GameType => {
     }
 
     case 'start': {
+      const allWords = [...action.payload.words];
+
       return {
         ...state,
         started: true,
-        board: initBoard(action.payload.sizeX, action.payload.sizeY, [
-          ...action.payload.words
-        ]),
-        wordsLeft: [...action.payload.words],
-        allWords: [...action.payload.words],
+        gameover: false,
+        board: initBoard(action.payload.sizeX, action.payload.sizeY, allWords),
+        wordsLeft: [...allWords],
+        allWords: [...allWords],
+        foundWords: [],
         allWordsNormalCase: action.payload.allWordsNormalCase
+      };
+    }
+
+    case 'gameover': {
+      return {
+        board: {
+          cells: [],
+          sizeX: 0,
+          sizeY: 0
+        },
+        allWords: [],
+        wordsLeft: [],
+        started: false,
+        gameover: false,
+        foundWords: [],
+        allWordsNormalCase: {},
+        _states: {}
       };
     }
 

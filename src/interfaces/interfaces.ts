@@ -24,6 +24,7 @@ export type GameType = {
   foundWords: string[];
   allWordsNormalCase: WordsNormalCaseType;
   started: boolean;
+  gameover: boolean;
   _states: GameState;
 };
 
@@ -41,7 +42,8 @@ export type GameActionType =
   | { type: 'reset_cell_select' }
   | { type: 'test_start' }
   | { type: 'select_cell_over'; payload: HTMLDivElement }
-  | { type: 'start'; payload: StartOptionsType };
+  | { type: 'start'; payload: StartOptionsType }
+  | { type: 'gameover' };
 
 export type SelectCellType = 'down' | 'up';
 
@@ -95,3 +97,5 @@ export type StartOptionsType = {
 };
 
 export type WordsNormalCaseType = { [key: string]: string };
+
+export type GameAreaType = 'started' | 'gameover';

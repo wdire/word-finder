@@ -3,12 +3,13 @@ import { GameType } from '../../interfaces';
 const initialState: GameType = {
   board: {
     cells: [],
-    sizeX: 10,
-    sizeY: 10
+    sizeX: 0,
+    sizeY: 0
   },
   allWords: [],
   wordsLeft: [],
   started: false,
+  gameover: false,
   foundWords: [],
   allWordsNormalCase: {},
   _states: {}
